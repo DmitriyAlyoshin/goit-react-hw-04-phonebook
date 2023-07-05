@@ -10,24 +10,19 @@ import { useLocalStorage } from 'hooks/useLocalStorage';
 let LS_KEY = 'contacts';
 
 export const App = () => {
-  const [contacts, setContacts] = useLocalStorage('contacts', initialContacts);
+  const [contacts, setContacts] = useLocalStorage(LS_KEY, initialContacts);
   const [filter, setFilter] = useState('');
-
-  useEffect(() => {
-    localStorage.setItem(LS_KEY, JSON.stringify(contacts));
-  }, [contacts]);
-
+ 
   const handlerSubmit = newContact => {
-    setContacts(prevContacts => {
-      if (prevContacts.find(contact => contact.name === newContact.name)) {
-         Notiflix.Notify.warning(`${newContact.name} is already in contacts`, {
-           position: 'center-top',
-           fontSize: '15px',
-         });
-        return prevContacts;
+    
+      if (contacts.find(contact => contact.name === newContact.name)) {
+        Notiflix.Notify.warning(`${newContact.name} is already in contacts`, {
+          position: 'center-top',
+          fontSize: '15px',
+        });
+        return;
       }
-      return [newContact, ...prevContacts];
-    });
+    setContacts(prevContacts => [newContact, ...prevContacts]);
   };
 
   const onFilter = e => {
