@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState} from 'react';
 import Notiflix from 'notiflix';
 import { ContactForm } from './ContactForm/ContactForm';
 import { ContactList } from './ContactList/ContactList';
@@ -16,7 +16,7 @@ export const App = () => {
   const handlerSubmit = newContact => {
     
       if (contacts.find(contact => contact.name === newContact.name)) {
-        Notiflix.Notify.warning(`${newContact.name} is already in contacts`, {
+        Notiflix.Notify.warning(`${newContact.name} is already in contacts!!!`, {
           position: 'center-top',
           fontSize: '15px',
         });
